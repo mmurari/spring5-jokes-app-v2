@@ -2,6 +2,7 @@ package mu.jokes.spring5jokesappv2.controllers;
 
 import mu.jokes.spring5jokesappv2.services.JokesService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -14,8 +15,9 @@ public class JokesController {
         this.service = service;
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String getJokes() {
-        return service.getJoke();
+    @RequestMapping(path = {"/", ""}, method = RequestMethod.GET)
+    public String getJokes(Model model) {
+        model.addAttribute("joke", service.getJoke());
+        return "index";
     }
 }
